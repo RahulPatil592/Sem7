@@ -1,42 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Item {
+class Item
+{
 public:
     double value;
     double weight;
 };
 
-class Knapsack {
+class Knapsack
+{
 public:
     // Comparator to sort items by descending value-to-weight ratio
-    static bool Comp(Item a, Item b) {
+    static bool Comp(Item a, Item b)
+    {
         double a1 = a.value / a.weight;
         double b1 = b.value / b.weight;
         return a1 > b1;
     }
 
-    double FractionalKnapsack(int wt, Item arr[], int n) {
+    double FractionalKnapsack(int wt, Item arr[], int n)
+    {
         double totalValue = 0.0; // Total value in knapsack
         double totalWeight = 0.0;
 
         // Sort items by value-to-weight ratio
         sort(arr, arr + n, Comp);
 
-        for (int i = 0; i < n; i++) {
-            if (totalWeight + arr[i].weight <= wt) {
+        for (int i = 0; i < n; i++)
+        {
+            if (totalWeight + arr[i].weight <= wt)
+            {
                 // If adding the whole item doesn’t exceed capacity, add it completely
                 totalWeight += arr[i].weight;
                 totalValue += arr[i].value;
-                cout << "Added complete item: value=" << arr[i].value 
-                     << ", weight=" << arr[i].weight << endl;
-            } else {
+            }
+            else
+            {
                 // If adding the whole item exceeds capacity, add fractionally
                 double remainingWeight = wt - totalWeight;
                 totalValue += (arr[i].value / arr[i].weight) * remainingWeight;
-                cout << "Added partial item: value=" 
-                     << (arr[i].value / arr[i].weight) * remainingWeight 
-                     << ", weight=" << remainingWeight << endl;
                 break;
             }
         }
@@ -44,13 +47,15 @@ public:
     }
 };
 
-int main() {
+int main()
+{
     int n;
     cout << "Enter the number of items: ";
     cin >> n;
 
     Item arr[n];
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         cout << "Enter value and weight of item " << i + 1 << ": ";
         cin >> arr[i].value >> arr[i].weight;
     }
@@ -64,6 +69,5 @@ int main() {
 
     return 0;
 }
-
 
 // 5 40 2 50 3.14 100 1.98 95 5 30 3
